@@ -1,0 +1,9 @@
+public class Proto {
+
+    public static void main(String[] args) {
+        for (String arg: args) {
+            System.out.println("Version du commit: "+arg);
+        }
+    }
+
+}

@@ -1,0 +1,29 @@
+#!/bin/sh
+# https://github.com/Arkapin/IFT-3913_TP1
+# https://github.com/jfree/jfreechart
+
+DIR="protodepot"
+rm -rf $DIR
+
+if [ $# -eq 0 ]
+    then
+        echo "Pas d'argument"
+else
+	git clone $1 $DIR
+fi
+
+#javac Proto.java
+
+echo "id_version;" > proto.csv
+
+cd $DIR
+
+for VERSION in $(git rev-list master); 
+    do
+		cd ..
+#		java Proto ${VERSION}
+		echo "Version: $VERSION" >> proto.csv
+		cd $DIR
+done
+
+exit
