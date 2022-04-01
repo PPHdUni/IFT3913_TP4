@@ -32,7 +32,7 @@ verifierClass() {
 				nc=$((nc+1))
 			fi
 			
-			if [[ $FILE != *"."* ]]
+			if [ -d $FILE ];
 			then
 				cd $FILE
 				verifierClass
@@ -56,16 +56,16 @@ else
 	git clone $1 $DIR
 fi
 
-#javac Proto.java
 
 echo "id_version;NC;" > proto.csv
 
 cd $DIR
 
-for VERSION in $(git rev-list master); 
+for VERSION in $(git rev-list --max-count=20 --skip=4190 master); 
     do
 		echo
-		echo "Version: $VERSION"
+		git reset --hard $VERSION
+		# echo "Version: $VERSION"
 		verifierClass
 		ncv=$?
 		cd ..
