@@ -2,11 +2,11 @@
 # https://github.com/Arkapin/IFT-3913_TP1
 # https://github.com/jfree/jfreechart
 
-verifierClass() {
-	local nc
-	local ncr
-	declare -i nc=0
-	declare -i ncr
+# verifierClass() {
+	# local nc
+	# local ncr
+	# declare -i nc=0
+	# declare -i ncr
 
 	# echo 
 	# pwd
@@ -25,28 +25,28 @@ verifierClass() {
 			# fi
 	# done
 	
-	for FILE in $(ls); 
-		do	
-			if [[ $FILE == *".java" ]]
-			then
-				nc=$((nc+1))
-			fi
+	# for FILE in $(ls); 
+		# do	
+			# if [[ $FILE == *".java" ]]
+			# then
+				# nc=$((nc+1))
+			# fi
 			
-			if [ -d $FILE ];
-			then
-				cd $FILE
-				verifierClass
-				ncr=$?
-				nc=$((ncr+nc))
-				cd ..
-			fi
-	done
+			# if [ -d $FILE ];
+			# then
+				# cd $FILE
+				# verifierClass
+				# ncr=$?
+				# nc=$((ncr+nc))
+				# cd ..
+			# fi
+	# done
 	
-	return $nc
-}
+	# return $nc
+# }
 
 DIR="protodepot"
-declare -i ncv=0
+# declare -i ncv=0
 rm -rf $DIR
 
 if [ $# -eq 0 ]
@@ -56,20 +56,25 @@ else
 	git clone $1 $DIR
 fi
 
+javac Proto.java
 
-echo "id_version;NC;" > proto.csv
+echo "id_version;NC;mWMC;mcBC" > proto.csv
 
 cd $DIR
 
-for VERSION in $(git rev-list --max-count=20 --skip=4190 master); 
+for VERSION in $(git rev-list --max-count=200 --skip=0 master); 
     do
 		echo
 		git reset --hard $VERSION
 		# echo "Version: $VERSION"
-		verifierClass
-		ncv=$?
+		# nc=0
+		# verifierClass
+		# ncv=$?
 		cd ..
-		echo "$VERSION;$ncv;" >> proto.csv
+		
+		java Proto $VERSION
+		
+		# echo "$VERSION;$nc;" >> proto.csv
 		cd $DIR
 done
 
