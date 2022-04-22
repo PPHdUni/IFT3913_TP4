@@ -62,7 +62,8 @@ echo "id_version;NC;mWMC;mcBC" > proto.csv
 
 cd $DIR
 
-for VERSION in $(git rev-list --max-count=200 --skip=0 master); 
+#for VERSION in $(git rev-list --max-count=200 --skip=0 master);
+for VERSION in $(git rev-list --skip=0 master);
     do
 		echo
 		git reset --hard $VERSION
